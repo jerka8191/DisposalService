@@ -43,10 +43,8 @@ public class DbUtil implements AutoCloseable {
 
 	public <T> DbUtil prepareStatement(String sql, T t) throws SQLException, IOException{
 		if (t instanceof Dumpster) {
-			System.out.println("dumpster");
 			return prepareStatement(sql, (Dumpster) t);
 		} else if (t instanceof User) {
-			System.out.println("user");
 			return prepareStatement(sql, (User) t);
 		}
 		return null;
