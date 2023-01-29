@@ -1,1 +1,0 @@
-java -jar web-app/WEB-INF/lib/winstone.jar --webroot=web-app
