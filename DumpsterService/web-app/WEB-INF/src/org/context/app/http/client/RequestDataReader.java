@@ -12,7 +12,7 @@ public class RequestDataReader {
 		BufferedReader reader = request.getReader();
 		do {	
 			line = reader.readLine();
-			buffer.append(line);
+			buffer += line;
 		} while (null != line);
 		return buffer.toString();
 	}
