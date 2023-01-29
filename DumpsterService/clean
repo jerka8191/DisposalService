@@ -1,1 +1,0 @@
-find web-app/WEB-INF/classes/ -name '*class' | xargs rm
