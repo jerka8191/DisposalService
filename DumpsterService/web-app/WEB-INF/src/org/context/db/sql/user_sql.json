@@ -1,0 +1,14 @@
+[	
+	{
+		"path" : "/user/createtable",
+		"code" : "CREATE TABLE IF NOT EXISTS app_user (id SERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL)"
+	},
+	{
+		"path" : "/user/save",
+		"code" : "INSERT INTO app_user(name, email, password) VALUES(?, ?, ?)"
+	},
+	{
+		"path" : "/user/load",
+		"code" :  "SELECT * FROM app_user WHERE email=?"
+	}
+]

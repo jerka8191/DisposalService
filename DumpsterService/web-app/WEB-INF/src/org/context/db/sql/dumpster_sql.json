@@ -1,0 +1,14 @@
+[	
+	{
+		"path" : "/dumpster/createtable", 
+		"code" : "CREATE TABLE IF NOT EXISTS dumpster (id SERIAL PRIMARY KEY, descr TEXT, position TEXT NOT NULL, app_user_id INTEGER, CONSTRAINT fk_app_user FOREIGN KEY (app_user_id) REFERENCES app_user(id))"
+	},
+	{
+		"path" : "/dumpster/save",
+		"code" : "INSERT INTO dumpster (descr, position, app_user_id) VALUES(?, ?, ?)"
+	},
+	{
+		"path" : "/dumpster/load",
+		"code" : "SELECT dumpster.id, dumpster.descr, dumpster.position, dumpster.app_user_id FROM dumpster JOIN app_user ON app_user.id=dumpster.app_user_id WHERE app_user.email=?"
+	}
+]

@@ -1,0 +1,2 @@
+javac -Xlint:unchecked -d web-app/WEB-INF/classes -cp web-app/WEB-INF/lib/javax.servlet-api-3.1.0.jar:web-app/WEB-INF/lib/json.jar:web-app/WEB-INF/src:. web-app/WEB-INF/src/org/context/app/http/*.java
+
