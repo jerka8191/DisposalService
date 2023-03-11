@@ -1,9 +1,13 @@
 package org.context.app.object;
 
+import org.context.api.ApplicationItem;
+import org.context.api.Prepareable;
+import org.context.format.JSONFactory;
+
 import org.json.*;
 import java.sql.*;
 
-public class User /* application frontend user */ {
+public class User implements ApplicationItem {
 
 	private int id;	
 	private String name;
@@ -25,7 +29,7 @@ public class User /* application frontend user */ {
 	}
 
 	public User(String jstr) {
-		this(new JSONObject(jstr));
+		this(JSONFactory.createObject(jstr));
 	}
 
 	public User(JSONObject obj){
@@ -36,8 +40,17 @@ public class User /* application frontend user */ {
 		obj.getString("password"));
 	}
 
+	@Override
+	public Prepareable populateQuery(Prepareable query) throws SQLException {
+		query.getWriteableObject().setString(1, this.name());
+		query.getWriteableObject().setString(2, this.email());
+		query.getWriteableObject().setString(3, this.password());
+		return query;
+	}
+
+	@Override
 	public JSONObject asJSON() {
-		return new JSONObject()
+		return JSONFactory.createObject()
 			.put("id", this.id())
 			.put("name", this.name())
 			.put("email", this.email())
@@ -58,10 +71,5 @@ public class User /* application frontend user */ {
 
 	public int id() {
 		return this.id;
-	}
-
-	@Override
-	public String toString() {
-		return "user " + this.name + " " + this.email;
 	}
 }

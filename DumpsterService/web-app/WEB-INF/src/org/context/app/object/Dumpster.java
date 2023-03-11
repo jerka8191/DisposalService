@@ -1,9 +1,13 @@
 package org.context.app.object;
 
+import org.context.api.ApplicationItem;
+import org.context.api.*;
+import org.context.format.JSONFactory;
+
 import org.json.*;
 import  java.sql.*;
 
-public class Dumpster /* application context primary item*/ {
+public class Dumpster implements ApplicationItem {
 
 	private int id;
 	private String descr;
@@ -34,12 +38,21 @@ public class Dumpster /* application context primary item*/ {
 
 	}
 
-	public Dumpster(String jstr) {
-		this(new JSONObject(jstr));
+	public Dumpster(String jstr) {			
+		this(JSONFactory.createObject(jstr));
 	}
 
+	@Override
+	public Prepareable populateQuery(Prepareable query) throws SQLException {
+		query.getWriteableObject().setString(1, this.descr());	
+		query.getWriteableObject().setString(1, this.position());
+		query.getWriteableObject().setInt(1, this.userId());
+		return query;	
+	}
+
+	@Override
 	public JSONObject asJSON() {
-		return new JSONObject()
+		return JSONFactory.createObject()
 			.put("id", this.id())
 			.put("descr", this.descr())
 			.put("position", this.position())

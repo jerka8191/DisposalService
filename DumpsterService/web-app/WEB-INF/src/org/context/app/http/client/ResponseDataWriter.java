@@ -7,16 +7,18 @@ import org.json.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class ResponseDataWriter {
+public class ResponseDataWriter implements DataWriter {
 
 	private PrintWriter responseDataWriter;
 	
+	@Override	
 	public void configure(HttpServletResponse res) throws IOException {
 		res.setContentType("application/json");
 		res.setCharacterEncoding("utf-8");
 		responseDataWriter = res.getWriter();
 	}
 
+	@Override
 	public void write(String dataResult) {
 		responseDataWriter.println(dataResult);
 		responseDataWriter.flush(); 

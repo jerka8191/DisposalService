@@ -1,17 +1,12 @@
 package org.context.db.init;
 
-import org.context.db.util.DbUtil;
+import org.context.api.*;
 
 import java.sql.*;
 import java.util.*;
 import java.io.*;
 
-public class Authentication {
-
-	private enum ArgPosition { NAME(0), PASS(1);
-		private ArgPosition(int value) { this.index = value; }
-		private int index;
-		public int index() { return this.index; }}
+public class Authentication implements Credentials {
 
 	private String url;
 	private String user;
@@ -21,12 +16,18 @@ public class Authentication {
 		this.url = url;
 	}
 
+	@Override
 	public void configure(String[] creds) {
-		this.user = creds[ArgPosition.NAME.index()];
-		this.password = creds[ArgPosition.PASS.index()];
+		this.user = creds[0];
+		this.password = creds[1];
 	}
 
+	@Override
 	public String url() { return url; }
+
+	@Override
 	public String user() { return user; }
+
+	@Override
 	public String password() { return password; }
 }
